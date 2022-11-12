@@ -72,7 +72,7 @@ resource "aws_iam_role" "readRole" {
 resource "aws_lambda_function" "writeLambda" {
 
   function_name = "writeLambda"
-  s3_bucket     = "mybuck7086125"
+  s3_bucket     = "mybuck7086126"
   s3_key        = "writeterra.zip"
   role          = aws_iam_role.writeRole.arn
   handler       = "writeterra.handler"
@@ -83,7 +83,7 @@ resource "aws_lambda_function" "writeLambda" {
 resource "aws_lambda_function" "readLambda" {
 
   function_name = "readLambda"
-  s3_bucket     = "mybuck7086125"
+  s3_bucket     = "mybuck7086126"
   s3_key        = "readterra.zip"
   role          = aws_iam_role.readRole.arn
   handler       = "readterra.handler"
