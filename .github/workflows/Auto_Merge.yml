@@ -1,29 +1,17 @@
-name: GitHub AutoMerge
-run-name: ${{ github.actor }} is testing automerge
+name: Merge Feature to Dev
 on:
   push:
-   branches:
-     - '*'         # matches every branch that doesn't contain a '/'
-     - '*/*'       # matches every branch containing a single '/'
-     - '**'        # matches every branch
-     - '!release/*'       # matches every branch containing a single '/'
-     - '!develop'
-     - '!main'
+    branches:
+      - 'feature/*'
 jobs:
-  merge-on-dev:
+  merge-branch:
     runs-on: ubuntu-latest
     steps:
-      - name: Set Git config
-        run: |
-            git config --global user.email "email@email.com"
-            git config --global user.name "renzzog777"
-      - name: Check out repository code
-        uses: actions/checkout@v2
-      - name: Merge feature back to dev
-        run: |
-            git fetch --unshallow
-            git switch develop
-            git pull
-            git merge  --strategy-option theirs --no-ff  ${{ github.ref }}  -m "Auto-merge ${{ github.ref }} back to develop"
-            git push origin develop
-            git push -d origin ${{ github.ref }}
+      - uses: actions/checkout@v3
+
+      - name: Merge feature/xxx -> dev
+        uses: devmasx/merge-branch@master
+        with:
+          type: now
+          target_branch: develop
+          github_token: ${{ secrets.GIT_TOKEN }}
