@@ -78,13 +78,8 @@ resource "aws_lambda_function" "writeLambda" {
   handler       = "writeterra.handler"
   runtime       = "nodejs12.x"
 
-depends_on = [
-    aws_s3_bucket.lambda_fn_upload,
-    aws_s3_bucket_object.order_status_file_upload
-]
 
 }
-
 
 resource "aws_lambda_function" "readLambda" {
 
@@ -94,10 +89,6 @@ resource "aws_lambda_function" "readLambda" {
   role          = aws_iam_role.readRole.arn
   handler       = "readterra.handler"
   runtime       = "nodejs12.x"
-depends_on = [
-    aws_s3_bucket.lambda_fn_upload,
-    aws_s3_bucket_object.order_status_file_upload
-]
 
 }
 
