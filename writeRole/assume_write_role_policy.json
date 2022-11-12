@@ -8,12 +8,7 @@
           "lambda.amazonaws.com"
           
       },
-      "Action": [
-        "dynamodb:BatchWriteItem",
-        "dynamodb:PutItem",
-        "dynamodb:UpdateItem",
-        "sts:AssumeRole"
-      ]
+      "Action": "sts:AssumeRole"
     }
   ]
 }

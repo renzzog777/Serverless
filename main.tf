@@ -57,7 +57,7 @@ resource "aws_iam_role" "writeRole" {
   name = "myWriteRole"
 
   assume_role_policy = file("./writeRole/assume_write_role_policy.json")
-
+  policy = file("./rols/writeRol/write_policy.json")
 }
 
 
