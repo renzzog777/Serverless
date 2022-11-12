@@ -1,6 +1,27 @@
-provider "aws" {
-   region = "us-east-1"
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 4.21.0"
+    }
+    random = {
+      source  = "hashicorp/random"
+      version = "~> 3.3.0"
+    }
+    archive = {
+      source  = "hashicorp/archive"
+      version = "~> 2.2.0"
+    }
+  }
+
+  required_version = "~> 1.0"
 }
+
+provider "aws" {
+  region = "us-west-2"
+}
+
+
 
 
 resource "aws_dynamodb_table" "ddbtable" {
@@ -36,7 +57,6 @@ resource "aws_iam_role" "writeRole" {
   name = "myWriteRole"
 
   assume_role_policy = file("./writeRole/assume_write_role_policy.json")
-
 }
 
 
@@ -51,22 +71,24 @@ resource "aws_iam_role" "readRole" {
 resource "aws_lambda_function" "writeLambda" {
 
   function_name = "writeLambda"
-  s3_bucket     = "mybuck7086125"
+  s3_bucket     = "mybuck7086126"
   s3_key        = "writeterra.zip"
   role          = aws_iam_role.writeRole.arn
   handler       = "writeterra.handler"
   runtime       = "nodejs12.x"
-}
 
+
+}
 
 resource "aws_lambda_function" "readLambda" {
 
   function_name = "readLambda"
-  s3_bucket     = "mybuck7086125"
+  s3_bucket     = "mybuck7086126"
   s3_key        = "readterra.zip"
   role          = aws_iam_role.readRole.arn
   handler       = "readterra.handler"
   runtime       = "nodejs12.x"
+
 }
 
 
@@ -169,3 +191,4 @@ resource "aws_lambda_permission" "readPermission" {
 output "base_url" {
   value = aws_api_gateway_deployment.apideploy.invoke_url
 }
+#test 4
