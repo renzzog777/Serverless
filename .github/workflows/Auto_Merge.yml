@@ -9,8 +9,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Merge feature/xxx -> dev
-        uses: devmasx/merge-branch@master
+      - name: Merge feature/changes -> dev
+        uses: devmasx/merge-branch@develop
         with:
           type: now
           target_branch: develop
