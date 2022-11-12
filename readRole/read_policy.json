@@ -10,7 +10,7 @@
         "dynamodb:Scan"
       ],
       "Effect": "Allow",
-      "Resource": "arn:aws:dynamodb:us-east-1:0000000:table/myTable"
+      "Resource": "arn:aws:dynamodb:us-west-2:527007648235:table/myTable"
     }
   ]
 }
