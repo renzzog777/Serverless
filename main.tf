@@ -67,12 +67,23 @@ resource "aws_iam_role" "readRole" {
 
 }
 
+data "archive_file" "zipread" {
+ type        = "zip"
+ source_file  = "${path.module}/readterra.js"
+ output_path = "${path.module}/readterra.zip"
+}
+
+data "archive_file" "zip2" {
+ type        = "zip"
+ source_file  = "${path.module}/writeterra.js"
+ output_path = "${path.module}/writeterra.zip"
+}
+
 
 resource "aws_lambda_function" "writeLambda" {
 
   function_name = "writeLambda"
-  s3_bucket     = "mybuck7086126"
-  s3_key        = "writeterra.zip"
+  filename      = "${path.module}/writeterra.zip"
   role          = aws_iam_role.writeRole.arn
   handler       = "writeterra.handler"
   runtime       = "nodejs12.x"
@@ -83,8 +94,7 @@ resource "aws_lambda_function" "writeLambda" {
 resource "aws_lambda_function" "readLambda" {
 
   function_name = "readLambda"
-  s3_bucket     = "mybuck7086126"
-  s3_key        = "readterra.zip"
+  filename      = "${path.module}/readterra.zip"
   role          = aws_iam_role.readRole.arn
   handler       = "readterra.handler"
   runtime       = "nodejs12.x"
