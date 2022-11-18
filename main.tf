@@ -116,6 +116,14 @@ module "cors" {
   api_resource_id = aws_api_gateway_resource.writeResource.id
 }
 
+module "cors2" {
+  source = "squidfunk/api-gateway-enable-cors/aws"
+  version = "0.3.3"
+
+  api_id          = aws_api_gateway_rest_api.apiLambda.id
+  api_resource_id = aws_api_gateway_resource.readResource.id
+}
+
 resource "aws_api_gateway_resource" "writeResource" {
   rest_api_id = aws_api_gateway_rest_api.apiLambda.id
   parent_id   = aws_api_gateway_rest_api.apiLambda.root_resource_id
